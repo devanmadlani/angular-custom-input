@@ -1,0 +1,13 @@
+<form class="custom-input" [formGroup]="formElement">
+  <div formArrayName="item">
+    <div  *ngFor="let entry of item.controls; let i = index">
+  <mat-form-field >
+    <mat-label>{{placeholder}}</mat-label>
+    <input matInput [placeholder]="placeholder" [formControlName]="i">
+  </mat-form-field>
+
+  </div>
+  </div>
+   <button mat-button color="primary" (click)="addItem('')">Primary</button>
+   {{_value}}
+</form>

@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomInputComponent } from './shared/custom-input/custom-input.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CustomInputComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

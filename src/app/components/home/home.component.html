@@ -1,0 +1,7 @@
+<div class="home-container" [formGroup]="homeForm">
+<app-custom-input formControlName="name"></app-custom-input>
+</div>
+
+<pre>
+{{homeForm.value | json}}
+</pre>
