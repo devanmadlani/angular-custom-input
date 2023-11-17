@@ -1,7 +1,7 @@
 <div class="home-container" [formGroup]="homeForm">
-<app-custom-input formControlName="name"></app-custom-input>
-</div>
+  <app-custom-input formControlName="name"></app-custom-input>
 
-<pre>
-{{homeForm.value | json}}
-</pre>
+  <pre>
+  {{ homeForm.getRawValue() | json }}
+  </pre>
+</div>

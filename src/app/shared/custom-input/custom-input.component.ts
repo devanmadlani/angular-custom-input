@@ -1,5 +1,16 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, UntypedFormArray, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormArray,
+  FormControl,
+  FormGroup,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  UntypedFormArray,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-custom-input',
@@ -29,13 +40,13 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor {
   onChange = (_: any) => {};
   // Function to call when the input is touched/
   onTouched: any = () => {};
-// Function called when validation is updated
+  // Function called when validation is updated
   onValidatorChange = () => {};
 
   _value: any = null;
 
   formElement = new FormGroup({
-    item: new FormArray([])
+    item: new FormArray([]),
   });
 
   get value(): any[] {
@@ -45,14 +56,18 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor {
   set value(newValue: any) {
     this._value = newValue;
     this.onChange(this._value);
-    this.configureForm()
+    this.configureForm();
     this.onValidatorChange();
   }
 
   ngOnInit(): void {
-
+    this.formElement.valueChanges.subscribe(() => {
+      setTimeout(() => {
+        const formValue = this.formElement.getRawValue();
+        this.onChange(formValue.item);
+      }, 20);
+    });
   }
-
 
   // Allows Angular to update the model
   // Update the model and changes needed for the view here.
@@ -60,23 +75,22 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor {
     this.value = value;
   }
 
-    // Allows Angular to register a function to call when the model changes.
+  // Allows Angular to register a function to call when the model changes.
   // Save the function as a property to call later here.
   public registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-    // Allows Angular to register a function to call when the input has been touched.
+  // Allows Angular to register a function to call when the input has been touched.
   // Save the function as a property to call later here.
   public registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
-    // Allows Angular to disable the input.
-    setDisabledState(isDisabled: boolean): void {
-      this.disabled = isDisabled;
-    }
-
+  // Allows Angular to disable the input.
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
 
   validate(_: AbstractControl): ValidationErrors | null {
     let valid = true;
@@ -88,7 +102,7 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor {
     if (this.minItems && !this.value?.length) {
       let min = this.minItems;
       while (min--) {
-        this.addItem("");
+        this.addItem('');
       }
     }
     this.value?.forEach((data: any) => {
@@ -96,9 +110,8 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor {
     });
   }
 
-
   get item() {
-    return this.formElement.get("item") as UntypedFormArray;
+    return this.formElement.get('item') as UntypedFormArray;
   }
 
   removeItem(index: number): void {
@@ -108,6 +121,4 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor {
   addItem(data: string): void {
     this.item.push(new FormControl(data, Validators.required));
   }
-
-
 }
