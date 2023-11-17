@@ -1,7 +1,10 @@
 <div class="home-container" [formGroup]="homeForm">
-  <app-custom-input formControlName="name"></app-custom-input>
-
-  <pre>
+  <h2>ControlValueAccessor in Angular</h2>
+  <div class="code">
+    <app-custom-input formControlName="name"></app-custom-input>
+    <pre>
   {{ homeForm.getRawValue() | json }}
-  </pre>
+  </pre
+    >
+  </div>
 </div>
