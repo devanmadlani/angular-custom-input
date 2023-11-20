@@ -1,10 +1,26 @@
 <div class="home-container" [formGroup]="homeForm">
-  <h2>ControlValueAccessor in Angular</h2>
-  <div class="code">
-    <app-custom-input formControlName="name"></app-custom-input>
-    <pre>
-  {{ homeForm.getRawValue() | json }}
-  </pre
-    >
-  </div>
+  <ng-container formArrayName="details">
+    <h2>ControlValueAccessor in Angular</h2>
+    <div class="details">
+      <ng-container
+        *ngFor="let lessonForm of details.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div>
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput placeholder="title" formControlName="title" />
+          </mat-form-field>
+          <app-custom-input formControlName="data"></app-custom-input>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+  <button mat-stroked-button color="primary" (click)="addDetails()">
+    Primary
+  </button>
+  <pre>
+
+    {{ homeForm.getRawValue() | json }}
+  </pre>
 </div>

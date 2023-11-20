@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +14,20 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class HomeComponent {
   homeForm = new FormGroup({
-    name: new FormControl([1, 2, 3]),
+    details: this.fb.array([]),
   });
+
+  constructor(private fb: FormBuilder) {}
+
+  get details() {
+    return this.homeForm.get('details') as FormArray;
+  }
+
+  addDetails() {
+    const lessonForm = this.fb.group({
+      title: [],
+      data: [[1, 2]],
+    });
+    this.details.push(lessonForm);
+  }
 }

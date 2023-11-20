@@ -5,3 +5,10 @@
   flex-direction: column;
   align-items: center;
 }
+.details {
+  display: flex;
+  flex-wrap: wrap;
+}
+app-custom-input {
+  margin: 2px;
+}
