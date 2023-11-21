@@ -118,7 +118,7 @@ export class CustomInputComponent implements OnInit, ControlValueAccessor {
     this.item.removeAt(index);
   }
 
-  addItem(data: string): void {
-    this.item.push(new FormControl(data, Validators.required));
+  addItem(data?: string): void {
+    this.item.push(new FormControl(data ?? ''));
   }
 }

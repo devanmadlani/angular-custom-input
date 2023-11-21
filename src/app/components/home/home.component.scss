@@ -8,7 +8,11 @@
 .details {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
-app-custom-input {
+
+.form {
+  display: flex;
+  flex-direction: column;
   margin: 2px;
 }

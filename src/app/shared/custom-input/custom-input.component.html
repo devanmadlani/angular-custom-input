@@ -1,15 +1,37 @@
 <form class="custom-input" [formGroup]="formElement">
-  <div>Custom control</div>
-  <div formArrayName="item">
-    <div *ngFor="let entry of item.controls; let i = index">
-      <mat-form-field>
-        <mat-label>{{ placeholder }}</mat-label>
-        <input matInput [placeholder]="placeholder" [formControlName]="i" />
-      </mat-form-field>
+  <fieldset>
+    <legend>Custom component</legend>
+    <div class="config-details">
+      <p>
+        Minimum and maximum items are configured by parent component add and
+        delete are shown based on these input
+      </p>
+      <p>This component returns and accept array of string</p>
     </div>
-
-    <button mat-stroked-button color="primary" (click)="addItem('')">
-      Primary
-    </button>
-  </div>
+    <div formArrayName="item">
+      <div *ngFor="let entry of item.controls; let i = index">
+        <mat-form-field>
+          <mat-label>{{ placeholder }}</mat-label>
+          <input matInput [placeholder]="placeholder" [formControlName]="i" />
+        </mat-form-field>
+        <button
+          mat-icon-button
+          aria-label="Delete item"
+          color="warn"
+          (click)="removeItem(i)"
+          *ngIf="!minItems || item.controls.length > minItems"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <button
+        mat-icon-button
+        aria-label="Delete item"
+        color="primary"
+        (click)="addItem()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </fieldset>
 </form>
